@@ -1,9 +1,6 @@
 data Tree a = Node (Tree a) a (Tree a) | Null
   deriving (Show, Eq)
 
-l2BST :: (Ord a) => [a] -> Tree a
-l2BST xs = foldl (flip insertBST) Null xs
-
 preorderT :: Tree a -> [a]
 preorderT Null = []
 preorderT (Node lt x rt) = [x] ++ preorderT lt ++ preorderT rt
@@ -13,6 +10,9 @@ insertBST x Null = Node Null x Null
 insertBST x (Node lt y rt)
   | x < y      = Node (insertBST x lt) y rt
   | otherwise  = Node lt y (insertBST x rt)
+
+l2BST :: (Ord a) => [a] -> Tree a
+l2BST xs = foldl (flip insertBST) Null xs
 
 minBST :: (Ord a) => Tree a -> a
 minBST (Node Null x _) = x
